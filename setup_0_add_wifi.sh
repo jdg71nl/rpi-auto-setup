@@ -3,7 +3,7 @@
 
 SETUP_A="setup_a_before_net.sh"
 SETUP_B="setup_b_after_net.sh"
-SETUP_0"setup_0_add_wifi.sh"
+SETUP_0="setup_0_add_wifi.sh"
 
 # - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - 
 # - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - 
