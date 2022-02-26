@@ -216,10 +216,12 @@ echo "# "
 
 #
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
-echo "# NEXT: (re)setting keyboard map to 'pc101' .."
+echo "# NEXT: checking keyboard map to be 'pc101' .."
 KEYB="/etc/default/keyboard"
 #
-cat <<HERE >> ${KEYB}
+if ! grep -q -i 'XKBLAYOUT="us"' ${KEYB} ; then
+  echo "# (re)setting keyboard map to 'pc101' .."
+  cat <<HERE > ${KEYB}
 #= /etc/default/keyboard
 # KEYBOARD CONFIGURATION FILE
 # Consult the keyboard(5) manual page.
@@ -230,23 +232,27 @@ XKBOPTIONS=""
 BACKSPACE="guess"
 #-EOF
 HERE
-dpkg-reconfigure -f noninteractive keyboard-configuration
+  dpkg-reconfigure -f noninteractive keyboard-configuration
+fi
 echo "# done."
 echo "# "
 
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
-echo "# NEXT: setting locale to 'en_US.UTF-8' ..."
+echo "# NEXT: checking locale to be 'en_US.UTF-8' ..."
 #
 # > cat /etc/locale.gen | egrep -v '^#'
 # en_US.UTF-8 UTF-8
 #
 LOCALE="/etc/locale.gen"
-cat <<HERE > ${LOCALE}
+if ! grep -q -i '^en_US.UTF-8 UTF-8' ${LOCALE} ; then
+  echo "# (re)setting keyboard map to 'pc101' .."
+  cat <<HERE > ${LOCALE}
 en_US.UTF-8 UTF-8
 HERE
-update-locale --no-checks LANG
-update-locale --no-checks "LANG=en_US.UTF-8"
-dpkg-reconfigure -f noninteractive locales
+  update-locale --no-checks LANG
+  update-locale --no-checks "LANG=en_US.UTF-8"
+  dpkg-reconfigure -f noninteractive locales
+fi
 echo "# done."
 echo "# "
 
@@ -296,15 +302,6 @@ echo "# NEXT: setting some default WiFi SSID ..."
 ID="$(wpa_cli -i "$IFACE" add_network)"
 SSID="LB21 Gast"
 PASSPHRASE="gastinlb21"
-wpa_cli -i "$IFACE" set_network "$ID" ssid "\"$SSID\"" 2>&1 | grep -q "OK"
-wpa_cli -i "$IFACE" set_network "$ID" psk "\"$PASSPHRASE\"" 2>&1 | grep -q "OK"
-wpa_cli -i "$IFACE" enable_network "$ID" > /dev/null 2>&1
-wpa_cli -i "$IFACE" save_config > /dev/null 2>&1
-wpa_cli -i "$IFACE" reconfigure > /dev/null 2>&1
-#
-ID="$(wpa_cli -i "$IFACE" add_network)"
-SSID="The Hague Tech"
-PASSPHRASE="onceuponatime"
 wpa_cli -i "$IFACE" set_network "$ID" ssid "\"$SSID\"" 2>&1 | grep -q "OK"
 wpa_cli -i "$IFACE" set_network "$ID" psk "\"$PASSPHRASE\"" 2>&1 | grep -q "OK"
 wpa_cli -i "$IFACE" enable_network "$ID" > /dev/null 2>&1
