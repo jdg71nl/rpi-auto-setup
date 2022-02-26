@@ -327,6 +327,22 @@ echo "# done."
 echo "# "
 
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
+echo "# NEXT: setting hostname ..."
+CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
+# https://whiptail.readthedocs.io/en/latest/
+NEW_FQDN=$(whiptail --inputbox "Please enter Hostname or FQDN" 10 60 ${CURRENT_HOSTNAME} --title Hostname 3>&1 1>&2 2>&3)
+#NEW_FQDN="myhost.domain.net"
+NEW_HOSTNAME=${NEW_FQDN%%.*}
+#
+echo $NEW_FQDN > /etc/hostname
+if [ ${NEW_FQDN} == ${NEW_HOSTNAME} ]; then
+  sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_FQDN /g" /etc/hosts
+else
+  sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_FQDN\t$NEW_HOSTNAME /g" /etc/hosts
+fi
+
+
+echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
 echo "# Next steps: "
 echo "# 1. before internet: run script           (do as root)>    ${SETUP_A}   <<=== DONE NOW "
 echo "# 2. reboot (to set wifi-country) "
