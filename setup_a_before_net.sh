@@ -241,7 +241,7 @@ echo "# NEXT: checking locale to be 'en_US.UTF-8' ..."
 #
 LOCALE="/etc/locale.gen"
 if ! grep -q -i '^en_US.UTF-8 UTF-8' ${LOCALE} ; then
-  echo "# (re)setting keyboard map to 'pc101' .."
+  echo "# (re)setting locale to 'en_US.UTF-8' ..."
   cat <<HERE > ${LOCALE}
 en_US.UTF-8 UTF-8
 HERE
