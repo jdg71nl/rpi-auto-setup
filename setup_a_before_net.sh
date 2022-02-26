@@ -307,15 +307,6 @@ wpa_cli -i "$IFACE" reconfigure > /dev/null 2>&1
 echo "# done."
 echo "# "
 
-# serial
-echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
-echo "# NEXT: enabling serial ..."
-set_config_var enable_uart 1 $CONFIG
-set_config_var dtoverlay disable-bt $CONFIG
-systemctl disable hciuart
-echo "# done."
-echo "# "
-
 # hdmi
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
 echo "# NEXT: enabling hdmi hotplug ..."
