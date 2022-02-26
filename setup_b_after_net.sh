@@ -31,8 +31,8 @@ echo "# "
 
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
 echo "# NEXT: installing opensssetup  ..."
-cd /root/ && git clone https://github.com/jdg71nl/opensyssetup.git && ./opensyssetup/setup.sh
-sudo -u jdg "cd /home/jdg/ && git clone https://github.com/jdg71nl/opensyssetup.git && ./opensyssetup/setup.sh"
+cd /root/ && if [ ! -d ./opensyssetup/ ]; then git clone https://github.com/jdg71nl/opensyssetup.git && ./opensyssetup/setup.sh ; fi
+sudo -u jdg -- sh -c "cd /home/jdg/ && if [ ! -d ./opensyssetup/ ]; then git clone https://github.com/jdg71nl/opensyssetup.git && ./opensyssetup/setup.sh ; fi"
 echo "# done."
 echo "# "
 
