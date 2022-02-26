@@ -182,10 +182,6 @@ if ! id -u jdg ; then
   echo "# user 'jdg' does not exist, creating .."
   useradd -m -p ${HASH} jdg
   adduser jdg sudo
-  #
-  cp ${SETUP_C} /home/jdg
-  chmod 755 /home/jdg/${SETUP_C}
-  chown jdg:jdg /home/jdg/${SETUP_C}
 else
   echo "# user 'jdg' does exist, updating pwd .."
   echo "jdg:${HASH}" | chpasswd -e 
