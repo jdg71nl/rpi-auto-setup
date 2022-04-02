@@ -14,7 +14,9 @@ fi
 #
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
 echo "# NEXT: apt update & apt install ..."
-apt update && apt install -y lsof htop vim curl git telnet openvpn libdevice-serialport-perl libjson-perl libjson-maybexs-perl liblwp-useragent-determined-perl minicom ntp
+#
+apt update && apt install -y lsof htop vim curl git telnet openvpn libdevice-serialport-perl libjson-perl libjson-maybexs-perl liblwp-useragent-determined-perl minicom ntp python-smbus i2c-tools
+#
 apt purge -y rfkill
 # && rm -rf /var/lib/apt/lists/*
 echo "# done."
