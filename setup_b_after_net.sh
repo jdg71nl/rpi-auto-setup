@@ -15,7 +15,9 @@ fi
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
 echo "# NEXT: apt update & apt install ..."
 #
-apt update && apt install -y lsof htop vim curl git telnet openvpn libdevice-serialport-perl libjson-perl libjson-maybexs-perl liblwp-useragent-determined-perl minicom ntp python3-smbus i2c-tools
+# PACK_LIST="lsof htop vim curl git telnet openvpn libdevice-serialport-perl libjson-perl libjson-maybexs-perl liblwp-useragent-determined-perl minicom ntp python3-smbus i2c-tools"
+PACK_LIST="lsof htop vim curl git telnet openvpn minicom ntp i2c-tools"
+apt update && apt install -y $PACK_LIST
 #
 apt purge -y rfkill
 # && rm -rf /var/lib/apt/lists/*

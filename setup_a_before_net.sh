@@ -161,41 +161,41 @@ if [ $MYUID != 0 ]; then
   echo "# provide your password for 'sudo':" ; sudo "$0" "$@" ; exit 1 ;
 fi
 
-#
-echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
-echo "# NEXT: check user jdg ..."
-#
-# > openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
-# wlOZuprceKIXgsxBfMZBWVyj1
-#
-# note: -5 = SHA256-based password algorithm
-# > echo "mysecret" | openssl passwd -5 -salt 'wlOZuprceKIXgsxBfMZBWVyj1' -stdin
-# $5$wlOZuprceKIXgsxB$W67Tds1fRXL2FNtMVF8KKJXNLCYeeZ30uXrV8n26oFD
-#
-# > echo "mysecret" | openssl passwd -5 -salt $(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25) -stdin
-# $5$o1QSFz3UjYlLR48L$QhTgjwpVMuokcxmpqFKhiSko6u/zqNalPPu3W1AxyTA
-#
-# generated 'ourpassword' using above SHA256 algo:
-HASH='$5$bEOE6br5fYLb7VpA$y.pLTM4svrjgEJT8uS33N5rt6oPM6/YVTWvYn.d6FdB'
-#
-if ! id -u jdg ; then
-  echo "# user 'jdg' does not exist, creating .."
-  useradd -m -p ${HASH} jdg
-  adduser jdg sudo
-else
-  echo "# user 'jdg' does exist, updating pwd .."
-  echo "jdg:${HASH}" | chpasswd -e 
-fi
-echo "# done."
-echo "# "
+# #
+# echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
+# echo "# NEXT: check user jdg ..."
+# #
+# # > openssl rand -base64 29 | tr -d "=+/" | cut -c1-25
+# # wlOZuprceKIXgsxBfMZBWVyj1
+# #
+# # note: -5 = SHA256-based password algorithm
+# # > echo "mysecret" | openssl passwd -5 -salt 'wlOZuprceKIXgsxBfMZBWVyj1' -stdin
+# # $5$wlOZuprceKIXgsxB$W67Tds1fRXL2FNtMVF8KKJXNLCYeeZ30uXrV8n26oFD
+# #
+# # > echo "mysecret" | openssl passwd -5 -salt $(openssl rand -base64 29 | tr -d "=+/" | cut -c1-25) -stdin
+# # $5$o1QSFz3UjYlLR48L$QhTgjwpVMuokcxmpqFKhiSko6u/zqNalPPu3W1AxyTA
+# #
+# # generated 'ourpassword' using above SHA256 algo:
+# HASH='$5$bEOE6br5fYLb7VpA$y.pLTM4svrjgEJT8uS33N5rt6oPM6/YVTWvYn.d6FdB'
+# #
+# if ! id -u jdg ; then
+#   echo "# user 'jdg' does not exist, creating .."
+#   useradd -m -p ${HASH} jdg
+#   adduser jdg sudo
+# else
+#   echo "# user 'jdg' does exist, updating pwd .."
+#   echo "jdg:${HASH}" | chpasswd -e 
+# fi
+# echo "# done."
+# echo "# "
 
-#
-echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
-echo "# NEXT: (re)setting pwd for default users: pi, root .."
-echo "pi:${HASH}"      | chpasswd -e 
-echo "root:${HASH}"    | chpasswd -e 
-echo "# done."
-echo "# "
+# #
+# echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
+# echo "# NEXT: (re)setting pwd for default users: pi, root .."
+# echo "pi:${HASH}"      | chpasswd -e 
+# echo "root:${HASH}"    | chpasswd -e 
+# echo "# done."
+# echo "# "
 
 #
 echo "# - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - - - - - - - + + + - - - - - - "
